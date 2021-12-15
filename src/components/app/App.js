@@ -11,39 +11,44 @@ export default class App extends Component {
 
   dbapi = new DbApi();
 
+  state = {
+    data: [
+      {id: 1, title: "Pick:" ,fn: this.dbapi.getAllPeople },
+      {id: 2, title: "Receipt:" ,fn: this.dbapi.getAllPlanets },
+      {id: 3, title: "Shipment:" ,fn: this.dbapi.getAllStarships },
+      {id: 4, title: "Collection:" ,fn: this.dbapi.getAllPeople },
+      {id: 5, title: "Transfer:" ,fn: this.dbapi.getAllPlanets },
+      {id: 6, title: "Other:" ,fn: this.dbapi.getAllStarships },
+    ],
+    orders: []
+  }
+
+  componentDidMount(){
+    const { data } = this.state;
+    // Render main screen
+    this.setState({
+      data: this.data,
+      orders: data.map(({ id, title, fn }) => {
+                return (
+                    <OrderCards
+                    key={id}
+                    title={title}
+                    getData = {fn}/>
+                );
+              })
+    });
+  }
+
   render(){
+
+    const { orders } = this.state;
     
     return (
       <div className='container-fluid'>
         <NavBar />
         <div className="row">
 
-            <OrderCards 
-            getData = {this.dbapi.getAllPeople}
-            title={"Pick:"}/>
-
-            <OrderCards 
-            getData = {this.dbapi.getAllPlanets}
-            title={"Receipt:"}/>
-
-            <OrderCards 
-            getData = {this.dbapi.getAllStarships}
-            title={"Shipment:"}/>
-
-
-            <OrderCards 
-            getData = {this.dbapi.getAllPeople}
-            title={"Collection:"}/>
-
-
-            <OrderCards 
-            getData = {this.dbapi.getAllPlanets}
-            title={"Transfer:"}/>
-
-
-            <OrderCards 
-            getData = {this.dbapi.getAllStarships}
-            title={"Other:"}/>
+            { orders }
 
         </div>
       </div>
