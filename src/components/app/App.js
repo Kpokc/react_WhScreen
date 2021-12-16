@@ -37,11 +37,33 @@ export default class App extends Component {
                 );
               })
     });
-  }
+  };
+
+  // create function to use for update state on request
+  componentDidUpdate() {
+    this.setState({
+      data: this.data,
+      orders: (({ id, title, fn }) => {
+                return (
+                    <OrderCards
+                    key={id}
+                    title={title}
+                    getData = {fn}/>
+                );
+              })
+    });
+  };
+
 
   render(){
 
-    const { orders } = this.state;
+    const { data, orders } = this.state;
+
+    const d = orders.map((el) => {
+      console.log(el.key);
+    });
+    
+    
     
     return (
       <div className='container-fluid'>
