@@ -32,14 +32,17 @@ export default class OrderCards extends Component {
     render() {
 
         const { orderList } = this.state;
-        const { title } = this.props;
+        const { title, updateID, updateData, changed } = this.props;
 
         // Render Orders
         if (orderList){
             return (
                 <CardItems 
                     orderList={orderList}
-                    title={title}/>
+                    title={title}
+                    updateID={updateID}
+                    updateData={updateData}
+                    changed/>
             );
         }
         else {

@@ -2,7 +2,7 @@ import React from 'react';
 
 import './card-items.css'
 
-export const CardItems = ({ orderList, title }) => {
+export const CardItems = ({ orderList, title, updateID, updateData, changed }) => {
 
     // Render orders
     if (orderList) {
@@ -10,7 +10,7 @@ export const CardItems = ({ orderList, title }) => {
             return (
                 <div className="card border-primary mb-3 mt-3"
                     key={id}
-                    onDoubleClick={() => window.alert("Double clicked!")} >
+                    onDoubleClick={() => updateData(updateID)} >
                     <div className="card-header">{title} {id}</div>
                     <div className="card-body">
                         <h5 className="card-title">{name}</h5>
@@ -23,6 +23,7 @@ export const CardItems = ({ orderList, title }) => {
         // Return Columns in orders
         return (
             <div className="col">
+                {changed}
                 <h4 className="mt-3 text-center">{title}</h4>
                 <div className='display-cards'>
                     {list}

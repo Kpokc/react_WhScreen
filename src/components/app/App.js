@@ -13,12 +13,12 @@ export default class App extends Component {
 
   state = {
     data: [
-      {id: 1, title: "Pick:" ,fn: this.dbapi.getAllPeople },
-      {id: 2, title: "Receipt:" ,fn: this.dbapi.getAllPlanets },
-      {id: 3, title: "Shipment:" ,fn: this.dbapi.getAllStarships },
-      {id: 4, title: "Collection:" ,fn: this.dbapi.getAllPeople },
-      {id: 5, title: "Transfer:" ,fn: this.dbapi.getAllPlanets },
-      {id: 6, title: "Other:" ,fn: this.dbapi.getAllStarships },
+      {id: '1XDTW1', title: "Pick:" ,fn: this.dbapi.getAllPeople },
+      {id: '2XDTW2', title: "Receipt:" ,fn: this.dbapi.getAllPlanets },
+      {id: '3XDTW3', title: "Shipment:" ,fn: this.dbapi.getAllStarships },
+      {id: '4XDTW4', title: "Collection:" ,fn: this.dbapi.getAllPeople },
+      {id: '5XDTW5', title: "Transfer:" ,fn: this.dbapi.getAllPlanets },
+      {id: '6XDTW6', title: "Other:" ,fn: this.dbapi.getAllStarships },
     ],
     orders: []
   }
@@ -33,37 +33,49 @@ export default class App extends Component {
                     <OrderCards
                     key={id}
                     title={title}
-                    getData = {fn}/>
+                    getData = {fn}
+                    updateID={id}
+                    updateData={this.updateData.bind(this)}/>
                 );
-              })
+      })
     });
-  };
+  }
 
-  // create function to use for update state on request
-  componentDidUpdate() {
-    this.setState({
-      data: this.data,
-      orders: (({ id, title, fn }) => {
-                return (
-                    <OrderCards
-                    key={id}
-                    title={title}
-                    getData = {fn}/>
-                );
-              })
+  updateData(uid){
+    console.log(uid);
+    const { orders } = this.state;
+    let res = orders.map((el) => {
+      if (uid == el.key){
+
+          return (
+            <OrderCards
+                      key={el.key}
+                      title={el.props.title}
+                      getData = {el.props.getData}
+                      updateID={el.props.updateID}
+                      updateData={this.props.updateData}/>
+          );
+      };
     });
-  };
 
+    res = res.filter(function( element ) {
+        return element !== undefined;
+    });
+
+    console.log(res);
+    
+  }
+  
 
   render(){
 
-    const { data, orders } = this.state;
+    const { orders } = this.state;
 
-    const d = orders.map((el) => {
-      console.log(el.key);
-    });
-    
-    
+    // const r = orders.map((el) => {
+    //   console.log(el.key)
+    // })
+
+    //console.log(orders.key)
     
     return (
       <div className='container-fluid'>
