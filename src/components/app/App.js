@@ -41,41 +41,36 @@ export default class App extends Component {
     });
   }
 
-  updateData(uid){
-    console.log(uid);
+  updateData(id){
+    console.log(id);
     const { orders } = this.state;
     let res = orders.map((el) => {
-      if (uid == el.key){
-
+      if (id === el.key){
           return (
             <OrderCards
                       key={el.key}
-                      title={el.props.title}
+                      title={el.props.title+"2222"}
                       getData = {el.props.getData}
                       updateID={el.props.updateID}
-                      updateData={this.props.updateData}/>
+                      updateData={el.props.updateData}/>
           );
-      };
+      }
+      else {
+        return el;
+      }
     });
 
-    res = res.filter(function( element ) {
-        return element !== undefined;
-    });
+     console.log(res)
 
-    console.log(res);
-    
+    this.setState({
+      orders: res
+    });
   }
   
 
   render(){
 
     const { orders } = this.state;
-
-    // const r = orders.map((el) => {
-    //   console.log(el.key)
-    // })
-
-    //console.log(orders.key)
     
     return (
       <div className='container-fluid'>
